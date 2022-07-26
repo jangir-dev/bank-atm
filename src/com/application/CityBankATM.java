@@ -5,8 +5,10 @@ import java.util.Scanner;
 
 public class CityBankATM {
     static Scanner scan = new Scanner(System.in);
+
+
     public static void cityBank(CityBankAccount account) {
-        System.out.println("PRESS [1] TO CASH WITHDRAWAL");
+        System.out.println("\nPRESS [1] TO CASH WITHDRAWAL");
         System.out.println("PRESS [2] TO VIEW BALANCE");
         System.out.println("PRESS [3] TO CHANGE PIN CODE");
         System.out.println("PRESS [4] TO CASH IN ACCOUNT");
@@ -18,6 +20,7 @@ public class CityBankATM {
 
         switch (request) {
             case 1:
+                System.out.print("How much to withdraw: ");
                 int credit = scan.nextInt();
                 account.creditBalance(credit);
                 break;
@@ -25,6 +28,8 @@ public class CityBankATM {
                 System.out.printf("Total balance: %d", account.totalBalance());
                 break;
             case 3:
+                scan.nextLine();
+                System.out.print("New PIN code: ");
                 String newPinCode = scan.nextLine();
                 account.setPinCode(newPinCode);
                 break;
@@ -33,16 +38,17 @@ public class CityBankATM {
                 account.debetBalance(debet);
                 break;
             case 5:
-                account.accountData();
+                System.out.println(account.accountData());
                 break;
             case 6:
+                System.out.println("Quitting...");
                 System.exit(0);
                 break;
         }
     }
 
     public static void nationalBank(NationalBankAccount account) {
-        System.out.println("PRESS [1] TO CASH WITHDRAWAL");
+        System.out.println("\nPRESS [1] TO CASH WITHDRAWAL");
         System.out.println("PRESS [2] TO VIEW BALANCE");
         System.out.println("PRESS [3] TO EXIT");
 
@@ -50,11 +56,12 @@ public class CityBankATM {
 
         switch (request) {
             case 1:
+                System.out.print("How much to withdraw: ");
                 int credit = scan.nextInt();
                 account.creditBalance(credit);
                 break;
             case 2:
-                account.totalBalance();
+                System.out.printf("Total balance: %d", account.totalBalance());
                 break;
             case 3:
                 System.out.println("Quitting...");
@@ -70,13 +77,15 @@ public class CityBankATM {
         System.out.print("Enter your PIN code: ");
         String pinCode = scan.nextLine();
 
-        if(accountNumber != null && pinCode != null) {
+        if(pinCode.trim() != null && accountNumber.trim() != null) {
             for(BankAccount account : Database.allAccounts) {
                 if (account.getAccountNumber().equals(accountNumber)) {
-                    if (account instanceof CityBankAccount) {
-                        cityBank((CityBankAccount) account);
-                    } else if(account instanceof NationalBankAccount) {
-                        nationalBank((NationalBankAccount) account);
+                    while (true) {
+                        if (account instanceof CityBankAccount) {
+                            cityBank((CityBankAccount) account);
+                        } else if(account instanceof NationalBankAccount) {
+                            nationalBank((NationalBankAccount) account);
+                        }
                     }
                 }
             }
