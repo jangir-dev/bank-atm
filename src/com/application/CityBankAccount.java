@@ -43,8 +43,8 @@ public class CityBankAccount implements BankAccount {
     }
 
     @Override
-    public void debetBalance(int debet) {
-        balance += debet;
+    public void debtBalance(int debt) {
+        balance += debt;
         System.out.printf("Updated balance: %d", balance);
     }
 

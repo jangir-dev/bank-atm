@@ -6,7 +6,7 @@ public interface BankAccount {
     void setPinCode(String pinCode);
     int totalBalance();
     void creditBalance(int credit);
-    void debetBalance(int debet);
+    void debtBalance(int debt);
     String accountData();
 
 }

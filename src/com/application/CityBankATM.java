@@ -1,6 +1,5 @@
 package com.application;
 
-import javax.xml.crypto.Data;
 import java.util.Scanner;
 
 public class CityBankATM {
@@ -19,31 +18,28 @@ public class CityBankATM {
         int request = scan.nextInt();
 
         switch (request) {
-            case 1:
+            case 1 -> {
                 System.out.print("How much to withdraw: ");
                 int credit = scan.nextInt();
                 account.creditBalance(credit);
-                break;
-            case 2:
-                System.out.printf("Total balance: %d", account.totalBalance());
-                break;
-            case 3:
+            }
+            case 2 -> System.out.printf("Total balance: %d", account.totalBalance());
+            case 3 -> {
                 scan.nextLine();
                 System.out.print("New PIN code: ");
                 String newPinCode = scan.nextLine();
                 account.setPinCode(newPinCode);
-                break;
-            case 4:
-                int debet = scan.nextInt();
-                account.debetBalance(debet);
-                break;
-            case 5:
-                System.out.println(account.accountData());
-                break;
-            case 6:
+            }
+            case 4 -> {
+                System.out.print("How much to cash in: ");
+                int debt = scan.nextInt();
+                account.debtBalance(debt);
+            }
+            case 5 -> System.out.println(account.accountData());
+            case 6 -> {
                 System.out.println("Quitting...");
                 System.exit(0);
-                break;
+            }
         }
     }
 
@@ -55,18 +51,16 @@ public class CityBankATM {
         int request = scan.nextInt();
 
         switch (request) {
-            case 1:
+            case 1 -> {
                 System.out.print("How much to withdraw: ");
                 int credit = scan.nextInt();
                 account.creditBalance(credit);
-                break;
-            case 2:
-                System.out.printf("Total balance: %d", account.totalBalance());
-                break;
-            case 3:
+            }
+            case 2 -> System.out.printf("Total balance: %d", account.totalBalance());
+            case 3 -> {
                 System.out.println("Quitting...");
                 System.exit(0);
-                break;
+            }
         }
     }
 
@@ -77,18 +71,19 @@ public class CityBankATM {
         System.out.print("Enter your PIN code: ");
         String pinCode = scan.nextLine();
 
-        if(pinCode.trim() != null && accountNumber.trim() != null) {
+        if (!accountNumber.trim().equals("") && !pinCode.trim().equals("")) {
             for(BankAccount account : Database.allAccounts) {
                 if (account.getAccountNumber().equals(accountNumber)) {
                     while (true) {
-                        if (account instanceof CityBankAccount) {
+                        if (account instanceof CityBankAccount)
                             cityBank((CityBankAccount) account);
-                        } else if(account instanceof NationalBankAccount) {
+                        else if(account instanceof NationalBankAccount)
                             nationalBank((NationalBankAccount) account);
-                        }
                     }
                 }
             }
+        } else {
+            throw new Error("Incorrect account number or PIN");
         }
     }
 }
