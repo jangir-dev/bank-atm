@@ -8,5 +8,4 @@ public interface BankAccount {
     void creditBalance(int credit);
     void debtBalance(int debt);
     String accountData();
-
 }

@@ -53,6 +53,4 @@ public class CityBankAccount implements BankAccount {
         String message = "Name: %s\nSurname: %s\nAccount number: %s\nBalance: %d";
         return String.format(message, name, surname, accountNumber, balance);
     }
-
-
 }

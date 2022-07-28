@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class CityBankATM {
     static Scanner scan = new Scanner(System.in);
 
-
     public static void cityBank(CityBankAccount account) {
         System.out.println("\nPRESS [1] TO CASH WITHDRAWAL");
         System.out.println("PRESS [2] TO VIEW BALANCE");
@@ -64,13 +63,8 @@ public class CityBankATM {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.print("Enter your account number: ");
-        String accountNumber = scan.nextLine();
 
-        System.out.print("Enter your PIN code: ");
-        String pinCode = scan.nextLine();
-
+    public static void runATM(String accountNumber, String pinCode ) {
         if (!accountNumber.trim().equals("") && !pinCode.trim().equals("")) {
             for(BankAccount account : Database.allAccounts) {
                 if (account.getAccountNumber().equals(accountNumber)) {
@@ -84,6 +78,27 @@ public class CityBankATM {
             }
         } else {
             throw new Error("Incorrect account number or PIN");
+        }
+    }
+
+    public static boolean isNumeric(String string) {
+        int value;
+        try {
+            value = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    public static void main(String[] args) {
+        System.out.print("Enter your account number: ");
+        String accountNumber = scan.nextLine();
+
+        System.out.print("Enter your PIN code: ");
+        String pinCode = scan.nextLine();
+
+        if(pinCode.length() == 4 && isNumeric(pinCode)) {
+            runATM(accountNumber, pinCode);
         }
     }
 }
