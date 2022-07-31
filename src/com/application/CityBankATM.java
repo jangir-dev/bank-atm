@@ -5,6 +5,14 @@ import java.util.Scanner;
 public class CityBankATM {
     static Scanner scan = new Scanner(System.in);
 
+    public static boolean isNumeric(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     public static void cityBank(CityBankAccount account) {
         System.out.println("\nPRESS [1] TO CASH WITHDRAWAL");
         System.out.println("PRESS [2] TO VIEW BALANCE");
@@ -81,15 +89,7 @@ public class CityBankATM {
         }
     }
 
-    public static boolean isNumeric(String string) {
-        int value;
-        try {
-            value = Integer.parseInt(string);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
+
     public static void main(String[] args) {
         System.out.print("Enter your account number: ");
         String accountNumber = scan.nextLine();
@@ -97,8 +97,9 @@ public class CityBankATM {
         System.out.print("Enter your PIN code: ");
         String pinCode = scan.nextLine();
 
-        if(pinCode.length() == 4 && isNumeric(pinCode)) {
+        if(pinCode.length() == 4 && isNumeric(pinCode))
             runATM(accountNumber, pinCode);
-        }
+        else
+            throw new Error("\nIncorrect account number or PIN");
     }
 }
